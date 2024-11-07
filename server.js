@@ -3,10 +3,13 @@ dotenv.config()
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
+const cors = require('cors')
 
 const PORT = process.env.PORT
 
 const petRouter = require('./controllers/pets.js')
+
+app.use(cors({ origin: 'http://localhost:5173' }))
 
 mongoose.connect(process.env.MONGODB_URI)
 
