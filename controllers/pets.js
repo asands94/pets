@@ -54,4 +54,23 @@ router.delete('/:petId', async (req, res) => {
   }
 })
 
+router.put('/:petId', async (req, res) => {
+  try {
+    const updatedPet = await Pet.findByIdAndUpdate(req.params.petId, req.body, {
+      new: true,
+    })
+    if (!updatedPet) {
+      res.status(404)
+      throw new Error('Pet not found.')
+    }
+    res.status(200).json(updatedPet)
+  } catch (error) {
+    if (res.statusCode === 404) {
+      res.json({ error: error.message })
+    } else {
+      res.status(500).json({ error: error.message })
+    }
+  }
+})
+
 module.exports = router
