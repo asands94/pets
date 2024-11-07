@@ -32,7 +32,23 @@ router.get('/:petId', async (req, res) => {
     if (res.statusCode === 404) {
       res.json({ error: error.message })
     } else {
-      // Add else statement to handle all other errors
+      res.status(500).json({ error: error.message })
+    }
+  }
+})
+
+router.delete('/:petId', async (req, res) => {
+  try {
+    const foundPet = await Pet.findByIdAndDelete(req.params.petId)
+    if (!foundPet) {
+      res.status(404)
+      throw new Error('Pet not found.')
+    }
+    res.status(200).json(`You just deleted: ${foundPet.name}`)
+  } catch (error) {
+    if (res.statusCode === 404) {
+      res.json({ error: error.message })
+    } else {
       res.status(500).json({ error: error.message })
     }
   }
