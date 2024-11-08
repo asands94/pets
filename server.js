@@ -1,13 +1,12 @@
-const dotenv = require('dotenv')
-dotenv.config()
-const express = require('express')
+import 'dotenv/config'
+import express from 'express'
 const app = express()
-const mongoose = require('mongoose')
-const cors = require('cors')
+import mongoose from 'mongoose'
+import cors from 'cors'
 
 const PORT = process.env.PORT
 
-const petRouter = require('./controllers/pets.js')
+import petRouter from './controllers/pets.js'
 
 app.use(cors({ origin: 'http://localhost:5173' }))
 
